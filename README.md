@@ -2,7 +2,7 @@
 
 Tools to help with quick roundtrip development using [Kick Assembler](http://www.theweb.dk/KickAssembler) and the [Vice Commodore 64 emulator](http://vice-emu.sourceforge.net), by sending commands to the remote monitor of a running Vice instance.
 
-There are designed to fail fast and not interfere with your build process if Vice happens not to be running.
+They are designed to fail fast and not interfere with your build process if Vice happens not to be running.
 
 For these tools to be of use, Vice needs to be running with the [remote monitor](http://vice-emu.sourceforge.net/vice_6.html#SEC84) enabled. For example:
 

@@ -1,10 +1,18 @@
-VICEREMOTE_VERSION=0.1.0-SNAPSHOT
+VICEREMOTE_VERSION=0.1.0
 KICKASS_VERSION=4.16.0
 MVN=docker run -t --rm -v "$$PWD":/workspace -v "$$PWD/.m2":/root/.m2 -w /workspace maven:3.5.0-jdk-8-alpine mvn
 KICKASS=.m2/cml/kickass/KickAss/$(KICKASS_VERSION)/KickAss-$(KICKASS_VERSION).jar
 
-viceremote: .m2/cml/kickass/KickAss/$(KICKASS_VERSION)/KickAss-$(KICKASS_VERSION).jar
+snapshot: .m2/cml/kickass/KickAss/$(KICKASS_VERSION)/KickAss-$(KICKASS_VERSION).jar
+	$(MVN) versions:set -DnewVersion=$(VICEREMOTE_VERSION)-SNAPSHOT
 	$(MVN) clean install
+
+release:
+	git tag $(VICEREMOTE_VERSION)
+	$(MVN) versions:set -DnewVersion=$(VICEREMOTE_VERSION)
+	$(MVN) clean install
+	git push
+	git push --tags
 
 test.prg: test.asm
 	java -jar target/viceremote-$(VICEREMOTE_VERSION).jar "reset 1"
